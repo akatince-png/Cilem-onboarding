@@ -1,0 +1,24 @@
+# Abhängigkeiten & Builds
+node_modules/
+dist/
+.astro/
+.vercel/
+.output/
+
+# Umgebungsvariablen / Secrets – NIE committen
+.env
+.env.*
+!.env.example
+
+# Rohoriginale (Fotos/Videos) gehören in den Cloud-Speicher der Kundin, nicht ins Git
+brand-media/originals/*
+!brand-media/originals/README.md
+brand-media/output/
+
+# System / Editor
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/*
+!.vscode/extensions.json
