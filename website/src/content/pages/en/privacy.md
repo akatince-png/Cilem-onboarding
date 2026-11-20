@@ -21,7 +21,7 @@ The controller for the processing of personal data on this website is the person
 
 ## Service providers
 
-- **Hosting:** Vercel Inc., USA – TODO confirm provider and transfer mechanism (UK International Data Transfer Addendum / UK–US Data Bridge).
+- **Hosting and domain:** Cloudflare, Inc., USA, which delivers the website through its global network – TODO confirm transfer mechanism (UK International Data Transfer Addendum / UK–US Data Bridge).
 - **Contact form:** TODO provider (e.g. Formspree) – used only to deliver your message.
 - **Analytics:** Google Ireland Ltd / Google LLC – only with consent.
 

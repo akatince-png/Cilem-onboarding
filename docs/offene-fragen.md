@@ -19,7 +19,8 @@ Solange diese Punkte offen sind, stehen in `website/src/config/site.ts` und den 
 
 ## C. Website
 11. Website-Sprachen: nur Englisch oder zusätzlich (welche)?
-12. Wunsch-Domain (vorhanden oder neu registrieren)? `.co.uk` oder `.com`?
+12. Domain bestätigen: Im Cloudflare-Konto ist `translate4uk.co.uk` aktiv, genannt wurde `translateforyou.co.uk`. Welche ist die Hauptdomain – und gibt es beide? (Zweite Domain ggf. per Weiterleitung nutzen.) Hauptadresse mit oder ohne `www`?
+12a. Auf wessen Namen/E-Mail läuft das Cloudflare-Konto und die Domain-Registrierung (Registrant bei Nominet)?
 13. Geschäftliche E-Mail-Adresse vorhanden? Soll eine Telefonnummer veröffentlicht werden?
 14. Geschäftsanschrift für die Rechtsseite (UK E-Commerce Regulations verlangen eine Anschrift) –
     Virtual-Office-/Geschäftsadresse statt Privatadresse?
@@ -40,6 +41,6 @@ Solange diese Punkte offen sind, stehen in `website/src/config/site.ts` und den 
 21. Ist sie bereits beim ICO registriert (Data Protection Fee)? Registrierungsnummer?
 
 ## G. Intern (Aka)
-22. Hosting: Vercel Pro (Konto der Kundin) oder kostenfrei Cloudflare Pages? → [entscheidungen.md](entscheidungen.md)
+22. ~~Hosting~~ → entschieden: Cloudflare Pages (siehe [entscheidungen.md](entscheidungen.md)).
 23. Wann soll das Repo in eine GitHub-Organisation der Kundin wandern – sofort oder bei Übergabe?
 24. In welcher Sprache sollen Übergabe-Dokumente für die Kundin sein (aktuell Deutsch)?

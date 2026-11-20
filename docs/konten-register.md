@@ -7,10 +7,9 @@ Stand: TODO Datum · Verantwortlich für die Pflege: Aka
 
 | Dienst | Zweck | Login / Inhaber-E-Mail | Inhaberin | Unsere Rolle | 2FA bei | Kosten / Abrechnung | Status |
 |---|---|---|---|---|---|---|---|
-| Domain-Registrar (TODO) | Domain `TODO` | TODO | Kundin | DNS-Bearbeitung | Kundin | ca. £/Jahr, Karte Kundin | offen |
+| Cloudflare | Domain `translate4uk.co.uk` (TODO bestätigen), DNS, Hosting (Pages) | TODO: Inhaber-E-Mail des Kontos | TODO: prüfen – Kundin? | Konto-Mitglied (Rolle TODO) | Kundin | Domain ca. £/Jahr; Pages kostenlos | aktiv |
 | Google Workspace / Google-Konto | Geschäftliche E-Mail, Login für Google-Dienste | TODO | Kundin | – / Admin-Nutzer | Kundin | – | offen |
 | GitHub | Code, Texte, Historie | `akatince-png` (vorläufig) | **noch Aka** → Transfer geplant | Owner → Maintainer | – | kostenlos | aktiv |
-| Vercel | Hosting, Vorschau-Links | TODO | Kundin (Pro-Team) | Member | Kundin | Pro ca. 20 USD/Monat | offen |
 | Google Search Console | Indexierung, Suchleistung | TODO | Kundin (DNS-verifiziert) | Uneingeschränkt | Kundin | kostenlos | offen |
 | Google Analytics 4 | Besucherstatistik (nur mit Einwilligung) | TODO | Kundin | Bearbeiter | Kundin | kostenlos | offen |
 | Google Business Profile | Lokale Suche / Maps London | TODO | Kundin (Primärer Inhaber) | Verwalter | Kundin | kostenlos | offen |

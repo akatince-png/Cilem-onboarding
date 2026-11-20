@@ -21,12 +21,12 @@ deckt die UK-Pflichten ab und erfüllt zugleich die Erwartungen deutschsprachige
 - Kein Tracking ohne Einwilligung; ohne GA-ID wird gar kein Banner/Tracking ausgeliefert.
 - Formular: nur notwendige Felder, Honeypot statt Captcha (kein Google reCAPTCHA).
 - Bild-Pipeline entfernt EXIF/GPS-Daten.
-- Sicherheits-Header (HSTS, CSP, X-Frame-Options …) in `website/vercel.json`.
+- Sicherheits-Header (HSTS, CSP, X-Frame-Options …) in `website/public/_headers`.
 
 ## Auftragsverarbeiter (für den Datenschutzhinweis)
 | Dienst | Zweck | Sitz | Transfermechanismus |
 |---|---|---|---|
-| Vercel | Hosting | USA | UK IDTA/Addendum bzw. UK-US Data Bridge (Zertifizierung prüfen) |
+| Cloudflare | Domain, DNS, Hosting (Pages) | USA | UK IDTA/Addendum bzw. UK-US Data Bridge (Zertifizierung prüfen); Cloudflare-DPA ist Teil der AGB |
 | Formspree (o. Ä.) | Formularversand | USA | wie oben prüfen |
 | Google (GA4) | Statistik, nur mit Einwilligung | IE/USA | Google Ads Data Processing Terms |
 

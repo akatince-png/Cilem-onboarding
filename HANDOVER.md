@@ -13,10 +13,10 @@ Eine Übergabe ist deshalb kein Umzug, sondern nur das Entfernen unserer Zugäng
 
 | Bereich | Wo | Eigentümerin | Unsere Rolle bis zur Übergabe |
 |---|---|---|---|
-| Domain + DNS | Registrar (siehe Register) | Kundin (Registrant) | Delegierter Nutzer / DNS-Bearbeitung |
+| Domain + DNS | Cloudflare | Kundin (Registrant, Konto-Inhaberin) | Konto-Mitglied mit eingeschränkter Rolle |
 | Geschäftliche E-Mail | z. B. Google Workspace | Kundin (Super-Admin) | ggf. eigener Admin-Nutzer |
 | Website-Code, Texte | GitHub-Repository | Kundin (Organisation/Konto) | Maintainer |
-| Hosting | Vercel-Team | Kundin (Team-Owner) | Member |
+| Hosting | Cloudflare Pages (gleiches Konto wie Domain) | Kundin | Konto-Mitglied |
 | Google Business Profile | business.google.com | Kundin (Primärer Inhaber) | Verwalter (Manager) |
 | Google Search Console | search.google.com/search-console | Kundin (Inhaber, per DNS verifiziert) | Uneingeschränkter Nutzer |
 | Google Analytics 4 | analytics.google.com | Kundin (Administrator des Kontos) | Bearbeiter |
@@ -52,7 +52,7 @@ Details zu jedem Dienst: [docs/eigentuemer-prinzip.md](docs/eigentuemer-prinzip.
 ### B. Im Übergabe-Termin
 - [ ] Kundin meldet sich bei jedem Dienst aus dem Register selbst an (Test: Zugriff funktioniert).
 - [ ] GitHub: Repository in ihr Konto/ihre Organisation übertragen → [docs/repo-transfer.md](docs/repo-transfer.md)
-- [ ] Vercel: Git-Verbindung nach dem Transfer prüfen, ein Test-Deployment auslösen.
+- [ ] Cloudflare Pages: Git-Verbindung nach dem Transfer prüfen, ein Test-Deployment auslösen.
 - [ ] Google Business Profile: Kundin ist „Primärer Inhaber“ – prüfen.
 - [ ] Search Console: Kundin ist verifizierter Inhaber (DNS-TXT) – prüfen.
 - [ ] Analytics: Kundin ist Administrator auf Kontoebene – prüfen.
@@ -60,9 +60,9 @@ Details zu jedem Dienst: [docs/eigentuemer-prinzip.md](docs/eigentuemer-prinzip.
 
 ### C. Unsere Zugänge entfernen (wenn die Betreuung endet)
 - [ ] GitHub: uns als Collaborator/Mitglied entfernen.
-- [ ] Vercel: uns aus dem Team entfernen.
+- [ ] Cloudflare: uns als Konto-Mitglied entfernen, ggf. von uns erstellte API-Tokens löschen.
 - [ ] Google Business Profile, Search Console, Analytics: unsere Nutzer entfernen.
-- [ ] Domain/DNS, Workspace, Formular-Dienst: unsere Nutzer entfernen.
+- [ ] Workspace, Formular-Dienst: unsere Nutzer entfernen.
 - [ ] LinkedIn-Unternehmensseite: unsere Admin-Rolle entfernen.
 - [ ] Geteilte Drive-Ordner: unsere Freigabe entfernen.
 - [ ] Unsere lokalen Kopien von Originalen und Exporten löschen (UK GDPR).

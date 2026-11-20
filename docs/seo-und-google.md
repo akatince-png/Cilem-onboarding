@@ -27,7 +27,7 @@ vorhanden ist (prüfen mit Search Console nach 4–8 Wochen bzw. Google Keyword 
 
 ## Launch-Ablauf
 1. Alle TODOs erledigt → `launch.ready: true` in `site.ts`.
-2. Domain in Vercel verbinden, `PUBLIC_SITE_URL` setzen, Produktions-Deploy.
+2. Domain in `site.ts` bestätigt; in Cloudflare Pages unter *Custom domains* `www.<domain>` und `<domain>` hinzufügen (DNS-Einträge legt Cloudflare selbst an), Umleitung der Nicht-Hauptvariante per *Redirect Rule*.
 3. Search Console (Domain-Property, DNS) → Sitemap einreichen → Startseite „Indexierung beantragen“.
 4. Google Business Profile: Website-URL eintragen.
 5. LinkedIn, Verbandsprofile: Website-URL eintragen; diese URLs in `site.person.sameAs` aufnehmen.

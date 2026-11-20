@@ -6,7 +6,7 @@
 #   <name>.webm (VP9, kleiner, für moderne Browser)
 #   <name>-poster.jpg (Standbild bei Sekunde 1)
 # Metadaten (Ort, Gerät, Datum) werden entfernt. Große Videos NICHT ins Git,
-# sondern über YouTube/Vimeo-Konto der Kundin oder Vercel Blob einbinden.
+# sondern über YouTube/Vimeo-Konto der Kundin oder Cloudflare Stream/R2 (Konto der Kundin) einbinden.
 set -euo pipefail
 command -v ffmpeg >/dev/null || { echo "ffmpeg fehlt (macOS: brew install ffmpeg)"; exit 1; }
 

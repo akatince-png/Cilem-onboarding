@@ -7,7 +7,7 @@ vollständig an die Kundin übergeben können**. Wie das geht, steht in [HANDOVE
 ## Aufbau
 
 ```
-website/        Website (Astro, statisch, mehrsprachig, Schema.org, Cookie-Einwilligung)
+website/        Website (Astro, statisch, mehrsprachig, Schema.org, Cookie-Einwilligung) – Hosting: Cloudflare Pages
 brand-media/    Brand-Tokens (Farben/Schriften), Bild- und Video-Pipeline, Rechte-Register
 docs/           Konten, Eigentümer-Prinzip, Wartung, SEO, Datenschutz, offene Fragen
 HANDOVER.md     Übergabe-Handbuch mit Checkliste
@@ -30,7 +30,7 @@ npm run todos    # zeigt alle noch offenen Projektdaten
    eigenen Zugängen und Rollen, nie mit ihrem Passwort. → [docs/eigentuemer-prinzip.md](docs/eigentuemer-prinzip.md)
 2. **Jedes Konto steht im Register** (ohne Passwörter). → [docs/konten-register.md](docs/konten-register.md)
 3. **Keine Secrets im Git.** Umgebungswerte stehen in `website/.env.example` als Vorlage; echte
-   Werte nur in Vercel. CI prüft das automatisch.
+   Werte nur in Cloudflare Pages. CI prüft das automatisch.
 4. **Keine Rohoriginale im Git.** Fotos/Videos liegen im Cloud-Speicher der Kundin.
 5. **Alle Fakten an einer Stelle:** `website/src/config/site.ts`. Offene Werte heißen `TODO:` –
    solange es welche gibt, kann die Seite nicht versehentlich „live“ für Google geschaltet werden.

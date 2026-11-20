@@ -15,6 +15,15 @@
  */
 
 export const site = {
+  /**
+   * Domain der Website, ohne https:// und ohne www (z. B. 'beispiel.co.uk').
+   * Daraus entstehen Canonical-URLs, Sitemap und Schema.org-Daten.
+   * PUBLIC_SITE_URL (Umgebungsvariable) hat Vorrang, z. B. für Testumgebungen.
+   */
+  domain: 'TODO: Domain bestätigen (translate4uk.co.uk oder translateforyou.co.uk?)',
+  /** Mit oder ohne www als Hauptadresse. Die jeweils andere Variante leitet Cloudflare um. */
+  useWww: true,
+
   launch: {
     /** Erst auf true setzen, wenn alle TODOs erledigt und Rechtstexte geprüft sind. */
     ready: false,

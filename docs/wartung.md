@@ -11,7 +11,7 @@ GitHub ändern – ohne Installation. Jede Änderung erzeugt automatisch einen *
    - Der Block zwischen den beiden `---` oben enthält Titel und Google-Beschreibung. Anführungszeichen stehen lassen.
    - `## Überschrift` = Zwischenüberschrift, `- Punkt` = Aufzählung, `**fett**`, `[Linktext](https://…)`.
 4. „Commit changes…“ → **„Create a new branch … and start a pull request“** wählen → kurz beschreiben, was geändert wurde.
-5. Nach 1–2 Minuten erscheint im Pull Request ein Vercel-Kommentar mit **Vorschau-Link** – ansehen, auch am Handy.
+5. Nach 1–2 Minuten erscheint im Pull Request ein Cloudflare-Kommentar mit **Vorschau-Link** – ansehen, auch am Handy.
 6. Passt alles → „Merge pull request“. Die Live-Seite ist nach ca. 1 Minute aktualisiert.
 
 Fehler passiert? Kein Problem: Jede Version ist gespeichert. Im Pull Request auf „Revert“ klicken.

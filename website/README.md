@@ -14,9 +14,10 @@ npm run todos        # offene Platzhalter anzeigen
 | Leistungen | `src/content/services/<sprache>/*.md` |
 | Menü-, Button- und Formulartexte | `src/i18n/ui.ts` |
 | Farben & Schriften | `../brand-media/tokens/tokens.json` → `npm run tokens` |
-| Sicherheits-Header | `vercel.json` |
+| Domain | `src/config/site.ts` → `domain` |
+| Sicherheits-Header | `public/_headers` (Cloudflare Pages) |
 
 Technik: Astro (statisch, kein Server nötig), Tailwind CSS, Schema.org JSON-LD
 (`src/lib/schema.ts`), Sitemap, Cookie-Einwilligung vor Google Analytics
 (`src/components/ConsentBanner.astro`). Da die Seite rein statisch ist, kann sie bei jedem
-Hoster laufen (Vercel, Netlify, Cloudflare Pages) – kein Lock-in.
+Hoster laufen. Produktiv: Cloudflare Pages (gleiches Konto wie die Domain).
