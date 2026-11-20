@@ -1,0 +1,24 @@
+---
+import { site } from '../config/site';
+import { t } from '../i18n/ui';
+import { filled } from '../lib/routing';
+
+interface Props {
+  locale: string;
+  legalHref?: string;
+  privacyHref?: string;
+}
+const { locale, legalHref, privacyHref } = Astro.props;
+const year = new Date().getFullYear();
+---
+<footer class="mt-auto border-t border-line bg-surface">
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 text-sm text-ink-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <p>© {year} {site.copyrightHolder}. {t(locale, 'footer.rights')}</p>
+    <ul class="flex flex-wrap gap-x-5 gap-y-2">
+      {filled(site.contact.email) && <li><a class="hover:text-ink" href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>}
+      {legalHref && <li><a class="hover:text-ink" href={legalHref}>{t(locale, 'footer.legal')}</a></li>}
+      {privacyHref && <li><a class="hover:text-ink" href={privacyHref}>{t(locale, 'footer.privacy')}</a></li>}
+      <li><button type="button" class="hover:text-ink underline-offset-4" data-consent-open>{t(locale, 'footer.cookies')}</button></li>
+    </ul>
+  </div>
+</footer>

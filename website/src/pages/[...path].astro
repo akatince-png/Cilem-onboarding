@@ -1,0 +1,50 @@
+---
+/**
+ * Erzeugt alle Seiten aus src/content/pages/<sprache>/*.md.
+ * Neue Seite = neue Markdown-Datei, kein Code nötig.
+ */
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ServiceList from '../components/ServiceList.astro';
+import ContactForm from '../components/ContactForm.astro';
+import LegalDetails from '../components/LegalDetails.astro';
+import { t } from '../i18n/ui';
+import { getPublishedPages, paramOf, pathOf, localeOf, alternatesFor, findByKey, type PageEntry } from '../lib/routing';
+
+export async function getStaticPaths() {
+  const all = await getPublishedPages();
+  return all.map((entry) => ({ params: { path: paramOf(entry) }, props: { entry } }));
+}
+
+const { entry } = Astro.props as { entry: PageEntry };
+const all = await getPublishedPages();
+const locale = localeOf(entry);
+const { Content } = await render(entry);
+const d = entry.data;
+const contact = findByKey(all, locale, 'contact');
+const privacy = findByKey(all, locale, 'privacy');
+const privacyHref = privacy ? pathOf(privacy) : undefined;
+---
+<Base title={d.title} description={d.description} locale={locale} path={pathOf(entry)}
+      alternates={alternatesFor(all, entry)} isHome={d.layout === 'home'}>
+  {d.layout === 'home' && d.hero ? (
+    <>
+      <section class="py-16 sm:py-24">
+        {d.hero.eyebrow && <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-accent">{d.hero.eyebrow}</p>}
+        <h1 class="max-w-4xl text-4xl sm:text-6xl">{d.hero.headline}</h1>
+        <p class="mt-6 max-w-2xl text-lg text-ink-muted sm:text-xl">{d.hero.subline}</p>
+        {contact && <p class="mt-10"><a class="btn" href={pathOf(contact)}>{t(locale, 'cta.contact')}</a></p>}
+      </section>
+      <ServiceList locale={locale} />
+      <section class="prose py-12"><Content /></section>
+    </>
+  ) : (
+    <article class="py-12 sm:py-16">
+      <h1 class="mb-8 text-4xl sm:text-5xl">{d.title}</h1>
+      {d.layout === 'legal' && d.translationKey === 'legal' && <div class="mb-10"><LegalDetails /></div>}
+      <div class="prose"><Content /></div>
+      {d.layout === 'contact' && <div class="mt-10"><ContactForm locale={locale} privacyHref={privacyHref} /></div>}
+      {d.translationKey === 'services' && <ServiceList locale={locale} detailed />}
+    </article>
+  )}
+</Base>

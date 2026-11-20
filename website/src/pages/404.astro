@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config/site';
+import { t } from '../i18n/ui';
+const locale = site.i18n.defaultLocale;
+---
+<Base title={t(locale, '404.title')} description={t(locale, '404.text')} locale={locale} path="/404/" alternates={[]}>
+  <section class="py-24">
+    <h1 class="text-4xl">{t(locale, '404.title')}</h1>
+    <p class="mt-4 text-ink-muted">{t(locale, '404.text')}</p>
+    <p class="mt-8"><a class="btn" href="/">{t(locale, '404.back')}</a></p>
+  </section>
+</Base>

@@ -1,0 +1,42 @@
+---
+import { site } from '../config/site';
+import { env, indexable } from '../lib/env';
+import { filled } from '../lib/routing';
+import { buildSchema } from '../lib/schema';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: string;
+  path: string;
+  alternates: { locale: string; href: string }[];
+  isHome?: boolean;
+}
+const { title, description, locale, path, alternates, isHome = false } = Astro.props;
+
+const base = env.siteUrl.replace(/\/$/, '');
+const canonical = `${base}${path}`;
+const suffix = filled(site.seo.defaultTitleSuffix);
+const fullTitle = isHome || !suffix ? title : `${title} | ${suffix}`;
+const ogImage = site.seo.defaultOgImage ? `${base}${site.seo.defaultOgImage}` : undefined;
+const xDefault = alternates.find((a) => a.locale === site.i18n.defaultLocale);
+const schema = buildSchema(env.siteUrl, locale);
+---
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{!indexable && <meta name="robots" content="noindex, nofollow" />}
+{alternates.length > 1 && alternates.map((a) => <link rel="alternate" hreflang={a.locale} href={`${base}${a.href}`} />)}
+{alternates.length > 1 && xDefault && <link rel="alternate" hreflang="x-default" href={`${base}${xDefault.href}`} />}
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={locale === 'en' ? 'en_GB' : locale} />
+{filled(site.brandName) && <meta property="og:site_name" content={site.brandName} />}
+{ogImage && <meta property="og:image" content={ogImage} />}
+<meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+
+{env.gscVerification && <meta name="google-site-verification" content={env.gscVerification} />}
+{isHome && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}

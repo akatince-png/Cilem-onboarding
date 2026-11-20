@@ -1,0 +1,44 @@
+---
+import { site } from '../config/site';
+import { t } from '../i18n/ui';
+
+interface Props {
+  locale: string;
+  nav: { href: string; label: string }[];
+  homeHref: string;
+  currentPath: string;
+  alternates: { locale: string; href: string }[];
+}
+const { locale, nav, homeHref, currentPath, alternates } = Astro.props;
+---
+<header class="border-b border-line bg-paper">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
+    <a href={homeHref} class="font-serif text-xl font-semibold text-ink no-underline">{site.brandName}</a>
+    <nav aria-label={t(locale, 'nav.label')}>
+      <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
+        {nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-ink-muted hover:text-ink aria-[current=page]:text-ink aria-[current=page]:underline underline-offset-4"
+              aria-current={item.href === currentPath ? 'page' : undefined}
+            >{item.label}</a>
+          </li>
+        ))}
+        {site.i18n.locales.length > 1 && (
+          <li>
+            <ul class="flex gap-2" aria-label={t(locale, 'lang.label')}>
+              {alternates.map((a) => (
+                <li>
+                  <a href={a.href} hreflang={a.locale} lang={a.locale}
+                     class="uppercase text-ink-muted hover:text-ink aria-[current=true]:text-ink"
+                     aria-current={a.locale === locale ? 'true' : undefined}>{a.locale}</a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        )}
+      </ul>
+    </nav>
+  </div>
+</header>

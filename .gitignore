@@ -3,6 +3,7 @@ node_modules/
 dist/
 .astro/
 .vercel/
+.wrangler/
 .output/
 
 # Umgebungsvariablen / Secrets – NIE committen

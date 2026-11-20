@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+import SeoHead from '../components/SeoHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
+import { site } from '../config/site';
+import { t } from '../i18n/ui';
+import { getPublishedPages, navFor, findByKey, pathOf } from '../lib/routing';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: string;
+  path: string;
+  alternates: { locale: string; href: string }[];
+  isHome?: boolean;
+}
+const props = Astro.props;
+const { locale } = props;
+
+const all = await getPublishedPages();
+const nav = navFor(all, locale);
+const home = findByKey(all, locale, 'home');
+const legal = findByKey(all, locale, 'legal');
+const privacy = findByKey(all, locale, 'privacy');
+const homeHref = home ? pathOf(home) : '/';
+const legalHref = legal ? pathOf(legal) : undefined;
+const privacyHref = privacy ? pathOf(privacy) : undefined;
+const htmlLang = locale === 'en' ? 'en-GB' : locale;
+const otherAlternates = site.i18n.locales.length > 1 ? props.alternates : [];
+---
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <SeoHead {...props} />
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-paper focus:p-3">{t(locale, 'skip')}</a>
+    <Header locale={locale} nav={nav} homeHref={homeHref} currentPath={props.path} alternates={otherAlternates} />
+    <main id="main" class="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-6">
+      <slot />
+    </main>
+    <Footer locale={locale} legalHref={legalHref} privacyHref={privacyHref} />
+    <ConsentBanner locale={locale} privacyHref={privacyHref} />
+  </body>
+</html>
