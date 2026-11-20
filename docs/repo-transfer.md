@@ -8,8 +8,8 @@
 3. Wir übertragen das Repo: *Settings → General → Danger Zone → Transfer ownership* → Ziel: die Organisation.
    - Historie, Issues, Pull Requests und Branches bleiben erhalten.
    - Alte URLs leiten automatisch weiter. Lokale Kopien: `git remote set-url origin <neue-url>`.
-4. Cloudflare Pages: *Projekt → Settings → Builds → Git repository* prüfen bzw. neu verbinden
-   (die Cloudflare-GitHub-App muss in der neuen Organisation installiert und für das Repo freigegeben sein).
+4. Deployment: Repository-Secrets und -Variablen bleiben beim Transfer erhalten. Unter *Actions* einen
+   Lauf von „Deploy (Cloudflare Pages)“ manuell starten (*Run workflow*) und prüfen.
 5. Test: kleinen Text ändern → Pull Request → Vorschau-Link → mergen → Live-Seite prüfen.
 6. Bei Ende der Betreuung: unsere Rolle von Owner auf „Member“ senken oder uns entfernen.
 
@@ -20,8 +20,8 @@ sind bei persönlichen Repos weniger fein steuerbar.
 ## Cloudflare-Konto
 Liegt das Pages-Projekt bereits im Konto der Kundin (empfohlen), ist nichts zu übertragen – wir werden
 nur als Mitglied entfernt. Liegt es in einem fremden Konto: Domain per *Move Domain* ins Konto der Kundin
-verschieben und das Pages-Projekt dort mit denselben Build-Einstellungen neu verbinden (2 Minuten,
-siehe [eigentuemer-prinzip.md](eigentuemer-prinzip.md#4-hosting-cloudflare-pages)).
+verschieben, neues API-Token dort erstellen und die beiden GitHub-Secrets ersetzen – der nächste
+Deploy legt das Pages-Projekt dort an (siehe [eigentuemer-prinzip.md](eigentuemer-prinzip.md#4-hosting-cloudflare-pages)).
 
 ## Hoster wechseln
 Die Website ist statisch. Bei Netlify/Vercel: Repo verbinden, Build-Befehl `npm run build`,

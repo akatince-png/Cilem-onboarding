@@ -52,7 +52,7 @@ Details zu jedem Dienst: [docs/eigentuemer-prinzip.md](docs/eigentuemer-prinzip.
 ### B. Im Übergabe-Termin
 - [ ] Kundin meldet sich bei jedem Dienst aus dem Register selbst an (Test: Zugriff funktioniert).
 - [ ] GitHub: Repository in ihr Konto/ihre Organisation übertragen → [docs/repo-transfer.md](docs/repo-transfer.md)
-- [ ] Cloudflare Pages: Git-Verbindung nach dem Transfer prüfen, ein Test-Deployment auslösen.
+- [ ] GitHub Actions: Secrets `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` sind nach dem Transfer weiter vorhanden (sonst neu anlegen); Test-Deployment auslösen.
 - [ ] Google Business Profile: Kundin ist „Primärer Inhaber“ – prüfen.
 - [ ] Search Console: Kundin ist verifizierter Inhaber (DNS-TXT) – prüfen.
 - [ ] Analytics: Kundin ist Administrator auf Kontoebene – prüfen.

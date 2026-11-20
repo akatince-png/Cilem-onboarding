@@ -18,4 +18,6 @@ Stand: TODO Datum · Verantwortlich für die Pflege: Aka
 | ICO | Data Protection Fee | Kundin | Kundin | – | – | Tier 1, jährlich | offen |
 | Google Drive-Ordner „Website – Originale“ | Rohfotos/-videos | Kundin | Kundin | Bearbeiter | Kundin | – | offen |
 
+| Cloudflare API-Token „GitHub Deploy“ | Deployment aus GitHub Actions (nur Pages: Edit) | – | Kundin (Konto) | erstellt durch TODO | – | – | Ablauf: TODO |
+
 **Wenn eine Zeile „noch Aka“ oder „noch wir“ als Inhaber zeigt, ist das ein offener Übergabepunkt.**

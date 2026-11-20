@@ -29,19 +29,27 @@ Domain **und** Hosting liegen bei Cloudflare – ein Konto für alles, das spart
   ohne Historie zu verlieren → [repo-transfer.md](repo-transfer.md).
 
 ## 4. Hosting (Cloudflare Pages)
-- Im Cloudflare-Konto der Kundin: *Workers & Pages → Create → Pages → Connect to Git* → dieses Repository.
-- Build-Einstellungen (Projekt-Root = Repo-Hauptordner, wegen npm-Workspaces):
-  - Framework preset: *Astro* bzw. *None*
-  - Build command: `npm run build`
-  - Build output directory: `website/dist`
-  - Root directory: *(leer)*
-  - Umgebungsvariablen: `NODE_VERSION=22` sowie die Werte aus `website/.env.example`
-  - Production branch: `main`
-- Jeder Pull Request bekommt automatisch eine Vorschau-Adresse `*.pages.dev`; diese sind per
-  `website/public/_headers` und Code immer `noindex`.
-- Custom Domains: *Projekt → Custom domains* → `www.<domain>` und `<domain>`; DNS-Einträge legt Cloudflare
-  automatisch an, weil die Domain im selben Konto liegt.
-- Die Seite ist rein statisch: Ein Wechsel zu einem anderen Hoster bleibt jederzeit ohne Code-Änderung möglich.
+Deployment läuft über **GitHub Actions** (`.github/workflows/deploy.yml`) per Direct Upload – Build-Logik
+und Einstellungen stehen damit vollständig im Repo und wandern bei einer Übergabe mit.
+
+Einmalige Einrichtung:
+1. Im Cloudflare-Konto der Kundin: *My Profile → API Tokens → Create Token → Custom token*
+   - Berechtigung: **Account → Cloudflare Pages → Edit** (sonst nichts)
+   - Account Resources: nur dieses Konto · TTL: Ablaufdatum setzen (z. B. 12 Monate, im Register notieren)
+2. Account-ID kopieren (Dashboard, rechte Spalte „Account ID“).
+3. GitHub-Repo → *Settings → Secrets and variables → Actions*:
+   - Secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`
+   - Variables (optional, öffentlich): `CF_PAGES_PROJECT` (Standard `cilem-website`), `PUBLIC_GA4_ID`,
+     `PUBLIC_FORM_ENDPOINT`, `PUBLIC_GSC_VERIFICATION`
+4. Erster Push auf `main` legt das Pages-Projekt automatisch an und veröffentlicht die Seite.
+5. Custom Domains: *Workers & Pages → Projekt → Custom domains* → `www.<domain>` und `<domain>`; die
+   DNS-Einträge legt Cloudflare an, weil die Domain im selben Konto liegt. Nicht-Hauptvariante per *Redirect Rule* umleiten.
+
+Ergebnis: Push auf `main` = Live-Seite; jeder Pull Request = eigene Vorschau-Adresse `*.pages.dev`
+(per `website/public/_headers` und Code immer `noindex`), der Link wird im PR kommentiert.
+
+Bei der Übergabe: Token läuft im Konto der Kundin – sie kann es jederzeit erneuern oder widerrufen.
+Die Seite ist rein statisch; ein Wechsel zu einem anderen Hoster bleibt ohne Code-Änderung möglich.
 
 ## 5. Google Search Console
 - Property-Typ **Domain** (erfasst alle Varianten), Verifizierung per **DNS-TXT-Eintrag in Cloudflare** – damit bleibt die
