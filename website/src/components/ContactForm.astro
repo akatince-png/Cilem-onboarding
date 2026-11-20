@@ -1,0 +1,84 @@
+---
+/**
+ * Anfrageformular. Versand über einen externen Formular-Dienst (PUBLIC_FORM_ENDPOINT),
+ * dessen Konto der Kundin gehört (z. B. Formspree). Ohne Endpunkt: E-Mail-Link.
+ * Datensparsam: nur Felder, die für ein Angebot nötig sind.
+ */
+import { site } from '../config/site';
+import { t } from '../i18n/ui';
+import { env } from '../lib/env';
+import { filled } from '../lib/routing';
+
+interface Props { locale: string; privacyHref?: string }
+const { locale, privacyHref } = Astro.props;
+const endpoint = env.formEndpoint;
+const email = filled(site.contact.email);
+---
+{endpoint ? (
+  <form method="POST" action={endpoint} class="grid max-w-2xl gap-5" data-contact-form
+        data-msg-sending={t(locale, 'form.sending')} data-msg-success={t(locale, 'form.success')} data-msg-error={t(locale, 'form.error')}>
+    <div class="grid gap-5 sm:grid-cols-2">
+      <label class="grid gap-1.5 text-sm font-medium">{t(locale, 'form.name')}
+        <input class="field" name="name" autocomplete="name" required />
+      </label>
+      <label class="grid gap-1.5 text-sm font-medium">{t(locale, 'form.email')}
+        <input class="field" type="email" name="email" autocomplete="email" required />
+      </label>
+    </div>
+    <div class="grid gap-5 sm:grid-cols-2">
+      <label class="grid gap-1.5 text-sm font-medium">{t(locale, 'form.organisation')}
+        <input class="field" name="organisation" autocomplete="organization" />
+      </label>
+      <label class="grid gap-1.5 text-sm font-medium">{t(locale, 'form.date')}
+        <input class="field" name="date" />
+      </label>
+    </div>
+    <label class="grid gap-1.5 text-sm font-medium">{t(locale, 'form.message')}
+      <textarea class="field min-h-40" name="message" required aria-describedby="msg-hint"></textarea>
+      <span id="msg-hint" class="text-xs font-normal text-ink-muted">{t(locale, 'form.message.hint')}</span>
+    </label>
+    <!-- Spam-Falle: für Menschen unsichtbar -->
+    <div aria-hidden="true" class="absolute -left-[9999px]">
+      <label>Leave empty <input name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+    </div>
+    <label class="flex items-start gap-3 text-sm">
+      <input type="checkbox" name="consent" value="yes" required class="mt-1" />
+      <span>{t(locale, 'form.consent')} {privacyHref && <a class="underline" href={privacyHref}>{t(locale, 'footer.privacy')}</a>}</span>
+    </label>
+    <div><button class="btn" type="submit">{t(locale, 'form.submit')}</button></div>
+    <p role="status" aria-live="polite" class="text-sm" data-form-status></p>
+  </form>
+) : (
+  <p class="text-lg">
+    {t(locale, 'form.fallback')}{' '}
+    {email ? <a class="font-semibold text-accent underline" href={`mailto:${email}`}>{email}</a> : <strong>{site.contact.email}</strong>}
+  </p>
+)}
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-contact-form]').forEach((form) => {
+    const status = form.querySelector<HTMLElement>('[data-form-status]')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const button = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+      button.disabled = true;
+      status.textContent = form.dataset.msgSending ?? '';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        status.textContent = form.dataset.msgSuccess ?? '';
+        // Konversion messen – nur aktiv, wenn Analytics nach Einwilligung geladen wurde
+        (window as any).gtag?.('event', 'generate_lead', { form: 'contact' });
+      } catch {
+        status.textContent = form.dataset.msgError ?? '';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
+</script>

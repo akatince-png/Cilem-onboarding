@@ -1,0 +1,13 @@
+{
+  "name": "brand-media",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "tokens": "node scripts/build-tokens.mjs",
+    "images": "node scripts/optimize-images.mjs",
+    "video": "bash scripts/process-video.sh"
+  },
+  "dependencies": {
+    "sharp": "0.35.5"
+  }
+}

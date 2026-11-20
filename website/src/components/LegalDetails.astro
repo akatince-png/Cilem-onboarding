@@ -1,0 +1,20 @@
+---
+/** Pflichtangaben aus src/config/site.ts – nie doppelt pflegen. */
+import { site } from '../config/site';
+import { filled } from '../lib/routing';
+const l = site.legal;
+const rows: [string, string | undefined][] = [
+  ['Trading name', l.tradingName],
+  ['Proprietor', site.person.name],
+  ['Company number (England & Wales)', filled(l.companyNumber)],
+  ['Registered office', filled(l.registeredOffice)],
+  ['VAT number', filled(l.vatNumber)],
+  ['ICO registration number', filled(l.icoRegistration) ?? (l.icoRegistration.startsWith('TODO') ? l.icoRegistration : undefined)],
+  ['Email', site.contact.email],
+  ['Telephone', filled(site.contact.phone)],
+  ['Business address', l.businessAddress],
+];
+---
+<dl class="grid max-w-2xl gap-x-8 gap-y-3 rounded-md border border-line bg-white p-6 sm:grid-cols-[max-content_1fr]">
+  {rows.filter(([, v]) => v).map(([k, v]) => (<><dt class="font-semibold">{k}</dt><dd class="text-ink-muted">{v}</dd></>))}
+</dl>

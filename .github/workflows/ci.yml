@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Prüfen & bauen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Typen & Astro-Komponenten prüfen
+        run: npm run check
+      - name: Offene Platzhalter auflisten
+        run: npm run todos
+      - name: Website bauen (bricht ab, wenn launch.ready=true und TODOs offen)
+        run: npm run build
+
+  hygiene:
+    name: Repo-Hygiene (Secrets & große Dateien)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Secret-Scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Keine Dateien über 5 MB und keine .env-Dateien
+        run: |
+          big=$(git ls-files -z | xargs -0 -I{} find {} -maxdepth 0 -type f -size +5M)
+          envs=$(git ls-files | grep -E '(^|/)\.env($|\.)' | grep -v '\.env\.example$' || true)
+          if [ -n "$big" ]; then echo "Zu große Dateien (Originale gehören nicht ins Git):"; echo "$big"; exit 1; fi
+          if [ -n "$envs" ]; then echo "Umgebungsdateien dürfen nicht committet werden:"; echo "$envs"; exit 1; fi
+          echo "OK"

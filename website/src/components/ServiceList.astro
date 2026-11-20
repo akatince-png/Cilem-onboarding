@@ -1,0 +1,47 @@
+---
+import { getCollection, render } from 'astro:content';
+import { site } from '../config/site';
+import { t } from '../i18n/ui';
+
+interface Props { locale: string; detailed?: boolean }
+const { locale, detailed = false } = Astro.props;
+
+const services = (await getCollection('services', (s) => !s.data.draft && s.id.startsWith(`${locale}/`)))
+  .sort((a, b) => a.data.order - b.data.order);
+const rendered = await Promise.all(services.map(async (s) => ({ s, Content: (await render(s)).Content })));
+---
+{rendered.length > 0 && (
+  <section aria-labelledby="services-h" class="py-12">
+    <h2 id="services-h" class="mb-8 text-3xl">{t(locale, 'services.heading')}</h2>
+    <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {rendered.map(({ s, Content }) => (
+        <li class="rounded-md border border-line bg-white p-6">
+          <h3 class="mb-2 text-xl">{s.data.title}</h3>
+          <p class="text-ink-muted">{s.data.summary}</p>
+          {detailed && <div class="prose mt-4 text-sm"><Content /></div>}
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+{(site.languagePairs.length > 0 || site.specialisms.length > 0) && (
+  <section class="grid gap-10 py-12 md:grid-cols-2">
+    {site.languagePairs.length > 0 && (
+      <div>
+        <h2 class="mb-4 text-2xl">{t(locale, 'languages.heading')}</h2>
+        <ul class="space-y-2">
+          {site.languagePairs.map((p) => <li>{p.from} {p.mode === 'both' ? '⇄' : '→'} {p.to}</li>)}
+        </ul>
+      </div>
+    )}
+    {site.specialisms.length > 0 && (
+      <div>
+        <h2 class="mb-4 text-2xl">{t(locale, 'specialisms.heading')}</h2>
+        <ul class="flex flex-wrap gap-2">
+          {site.specialisms.map((s) => <li class="rounded-sm bg-accent-soft px-3 py-1 text-sm">{s}</li>)}
+        </ul>
+      </div>
+    )}
+  </section>
+)}
